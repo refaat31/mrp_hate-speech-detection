@@ -83,7 +83,8 @@ class HateXplainDatasetForBias(Dataset):
         assert mode in ['train', 'val', 'test'], "mode should be [train/val/test]"
         
         data_root = args.dir_hatexplain
-        data_dir = os.path.join(data_root, 'hatexplain_two_div.json')
+        # data_dir = os.path.join(data_root, 'hatexplain_two_div.json')
+        data_dir = os.path.join(data_root, 'hatexplain_climate_div.json')
         with open(data_dir, 'r') as f:
             dataset = json.load(f)
 
@@ -113,7 +114,7 @@ class HateXplainDatasetForBias(Dataset):
 
     def __getitem__(self, idx):
         post_id = self.dataset[idx]['post_id']
-        text = ' '.join(self.dataset[idx]['text'])
+        text = self.dataset[idx]['text'] #' '.join(self.dataset[idx]['text'])
         text = emoji.demojize(text)
         label = self.dataset[idx]['final_label']
         cls_num = self.label_list.index(label)
